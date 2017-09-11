@@ -27,3 +27,21 @@ doc/examples/*Example
 *.lai
 *.la
 *.a
+
+# Compiled python modules.
+*.pyc
+
+# Setuptools distribution folder.
+/dist/
+
+# Python egg metadata, regenerated from source files by setuptools.
+/*.egg-info
+/*.egg
+
+# Project files
+*.sublime*
+.project
+.cproject
+
+# remove cache files
+/*__pycache__
