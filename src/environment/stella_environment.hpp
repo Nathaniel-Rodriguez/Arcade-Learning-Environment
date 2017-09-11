@@ -64,6 +64,9 @@ class StellaEnvironment {
       */
     reward_t act(Action player_a_action, Action player_b_action);
 
+    // Minimal act: like oneStepAct
+    reward_t minimalAct(Action player_a_action, Action player_b_action);
+
     /** Returns true once we reach a terminal state */
     bool isTerminal() const;
 
@@ -77,6 +80,9 @@ class StellaEnvironment {
 
     int getFrameNumber() const { return m_state.getFrameNumber(); }
     int getEpisodeFrameNumber() const { return m_state.getEpisodeFrameNumber(); }
+
+    size_t getScreenHeight() const;
+    size_t getScreenWidth() const;
 
   private:
     /** This applies an action exactly one time step. Helper function to act(). */

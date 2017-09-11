@@ -169,6 +169,22 @@ reward_t StellaEnvironment::act(Action player_a_action, Action player_b_action) 
   return sum_rewards;
 }
 
+reward_t StellaEnvironment::minimalAct(Action player_a_action,
+    Action player_b_action) {
+  if (isTerminal())
+    return 0;
+
+  // Convert illegal actions into NOOPs; actions such as reset are always legal
+  noopIllegalActions(player_a_action, player_b_action);
+
+  // Emulate in the emulator
+  emulate(player_a_action, PLAYER_B_NOOP);
+  // Increment the number of frames seen so far
+  m_state.incrementFrame();
+
+  return m_settings->getReward();
+}
+
 /** Applies the given actions (e.g. updating paddle positions when the paddle is used)
   *  and performs one simulation step in Stella. */
 reward_t StellaEnvironment::oneStepAct(Action player_a_action, Action player_b_action) {
@@ -251,3 +267,10 @@ void StellaEnvironment::processRAM() {
     *m_ram.byte(i) = m_osystem->console().system().peek(i + 0x80); 
 }
 
+size_t StellaEnvironment::getScreenHeight() const {
+  return m_screen.height();
+}
+
+size_t StellaEnvironment::getScreenWidth() const {
+  return m_screen.width();
+}
