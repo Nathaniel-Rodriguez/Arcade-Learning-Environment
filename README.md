@@ -33,8 +33,9 @@ Compilation:
 
 ```
 $ mkdir build && cd build
-$ cmake -DUSE_SDL=ON -DUSE_RLGLUE=OFF -DBUILD_EXAMPLES=ON ..
+$ cmake -DUSE_SDL=ON -DUSE_RLGLUE=OFF -DBUILD_EXAMPLES=ON -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR$ ..
 $ make -j 4
+$ make install
 ```
 
 To install python module:
