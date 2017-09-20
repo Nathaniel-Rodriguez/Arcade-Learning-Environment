@@ -696,6 +696,7 @@ void Settings::setDefaultSettings() {
 
     // Controller settings
     intSettings.insert(pair<string, int>("max_num_frames", 0));
+    intSettings.insert(pair<string, int>("max_num_episodes", 0));
     intSettings.insert(pair<string, int>("max_num_frames_per_episode", 0));
 
     // FIFO controller settings
