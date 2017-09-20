@@ -297,6 +297,7 @@ void Settings::usage() {
        " Environment arguments:\n"
        "   -max_num_frames m (default: 0)\n"
        "     The program will quit after this number of frames. 0 means never.\n"
+       "   -max_num_episodes m (default: 0)\n"
        "   -max_num_frames_per_episode m (default: 0)\n"
        "     Ends each episode after this number of frames. 0 means never.\n"
        "   -color_averaging [true|false] (default: false)\n"
