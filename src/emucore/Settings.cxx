@@ -719,6 +719,7 @@ void Settings::setDefaultSettings() {
 
     // Display Settings
     boolSettings.insert(pair<string, bool>("display_screen", false));
+    boolSettings.insert(pair<string, bool>("print_screen", false));
 
     for(map<string, string>::iterator it = stringSettings.begin(); it != stringSettings.end(); it++) {
       this->setString(it->first, it->second);
