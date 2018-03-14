@@ -42,6 +42,8 @@ doc/examples/*Example
 *.sublime*
 .project
 .cproject
+.idea
+cmake-build-debug
 
 # remove cache files
 /*__pycache__
