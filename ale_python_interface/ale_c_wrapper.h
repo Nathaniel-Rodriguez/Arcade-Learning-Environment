@@ -2,7 +2,7 @@
 #define __ALE_C_WRAPPER_H__
 
 #include <ale_interface.hpp>
-#include <glibc_version_fix.h>
+#include __asm__(".symver memcpy,memcpy@GLIBC_2.2.5");
 
 extern "C" {
   // Declares int rgb_palette[256]

@@ -1,4 +1,4 @@
-#include <glibc_version_fix.h>
+#include __asm__(".symver memcpy,memcpy@GLIBC_2.2.5");
 #ifdef HAVE_SYS_TYPES_H
 #include <sys/types.h>
 #endif

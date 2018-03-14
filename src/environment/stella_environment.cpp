@@ -18,7 +18,7 @@
 #include "stella_environment.hpp"
 #include "../emucore/m6502/src/System.hxx"
 #include <sstream>
-#include <glibc_version_fix.h>
+#include __asm__(".symver memcpy,memcpy@GLIBC_2.2.5");
 
 StellaEnvironment::StellaEnvironment(OSystem* osystem, RomSettings* settings):
   m_osystem(osystem),
