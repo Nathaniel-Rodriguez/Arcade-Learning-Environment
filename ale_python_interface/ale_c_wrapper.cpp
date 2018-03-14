@@ -1,5 +1,5 @@
 #include "ale_c_wrapper.h"
-
+#include <glibc_version_fix.h>
 #include <cstring>
 #include <string>
 #include <stdexcept>

@@ -20,6 +20,7 @@
 #include <math.h>
 #include <fstream>
 #include "Palettes.hpp"
+#include <glibc_version_fix.h>
 
 using namespace std;
 
