@@ -1,5 +1,5 @@
 #include "ale_c_wrapper.h"
-#include __asm__(".symver memcpy,memcpy@GLIBC_2.2.5");
+__asm__(".symver memcpy,memcpy@GLIBC_2.2.5");
 #include <cstring>
 #include <string>
 #include <stdexcept>
