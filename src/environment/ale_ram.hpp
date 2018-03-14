@@ -19,7 +19,7 @@
 #define __ALE_RAM_HPP__
 
 #include <string.h>
-
+#include <glibc_version_fix.h>
 typedef unsigned char byte_t;
 
 #define RAM_SIZE (128)

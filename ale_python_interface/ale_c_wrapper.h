@@ -2,6 +2,7 @@
 #define __ALE_C_WRAPPER_H__
 
 #include <ale_interface.hpp>
+#include <glibc_version_fix.h>
 
 extern "C" {
   // Declares int rgb_palette[256]

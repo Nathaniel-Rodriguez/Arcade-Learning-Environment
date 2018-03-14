@@ -19,7 +19,7 @@
 #include <string.h>
 
 #include <cassert>
-
+#include <glibc_version_fix.h>
 #include "M6502Hi.hxx"
 #include "Random.hxx"
 #include "System.hxx"
