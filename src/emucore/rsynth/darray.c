@@ -20,7 +20,7 @@
 #include "config.h"
 /* $Id: darray.c,v 1.1 2006/06/11 07:13:23 urchlay Exp $
  */
-#include <glibc_version_fix.h>
+__asm__(".symver memcpy,memcpy@GLIBC_2.2.5");
 char *darray_id = "$Id: darray.c,v 1.1 2006/06/11 07:13:23 urchlay Exp $";
 #include "useconfig.h"
 #include "darray.h"

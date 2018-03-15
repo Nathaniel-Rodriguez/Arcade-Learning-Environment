@@ -19,7 +19,7 @@
 #include <string.h>
 
 #include <cassert>
-#include <glibc_version_fix.h>
+__asm__(".symver memcpy,memcpy@GLIBC_2.2.5");
 #include "M6502Hi.hxx"
 #include "Random.hxx"
 #include "System.hxx"
