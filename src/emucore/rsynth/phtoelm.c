@@ -18,7 +18,7 @@
 
 */
 #include "config.h"
-__asm__(".symver memcpy,memcpy@GLIBC_2.2.5");
+#include <glibc_version_fix.h>
 /* $Id: phtoelm.c,v 1.2 2006/06/12 14:12:52 stephena Exp $
  */
 char *phtoelm_id = "$Id: phtoelm.c,v 1.2 2006/06/12 14:12:52 stephena Exp $";

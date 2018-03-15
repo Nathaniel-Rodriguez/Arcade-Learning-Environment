@@ -25,7 +25,7 @@
 #include <assert.h>
 
 #include "../emucore/m6502/src/bspf/src/bspf.hxx"
-__asm__(".symver memcpy,memcpy@GLIBC_2.2.5");
+#include <glibc_version_fix.h>
 namespace Common {
 
 template <class T>

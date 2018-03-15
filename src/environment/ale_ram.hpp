@@ -19,7 +19,7 @@
 #define __ALE_RAM_HPP__
 
 #include <string.h>
-__asm__(".symver memcpy,memcpy@GLIBC_2.2.5");
+#include <glibc_version_fix.h>
 typedef unsigned char byte_t;
 
 #define RAM_SIZE (128)

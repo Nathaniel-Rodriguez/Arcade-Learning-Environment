@@ -20,7 +20,7 @@
 #include <math.h>
 #include <fstream>
 #include "Palettes.hpp"
-__asm__(".symver memcpy,memcpy@GLIBC_2.2.5");
+#include <glibc_version_fix.h>
 
 using namespace std;
 
