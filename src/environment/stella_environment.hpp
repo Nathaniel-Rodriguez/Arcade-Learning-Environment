@@ -33,6 +33,9 @@
 #include <stack>
 #include <memory>
 
+// Defines the number of random environments (adopted from Xitari)
+#define NUM_RANDOM_ENVIRONMENTS (500)
+
 class StellaEnvironment {
   public:
     StellaEnvironment(OSystem * system, RomSettings * settings);
@@ -141,6 +144,7 @@ class StellaEnvironment {
     int m_max_num_frames_per_episode; // Maxmimum number of frames per episode 
     size_t m_frame_skip; // How many frames to emulate per act()
     float m_repeat_action_probability; // Stochasticity of the environment
+    bool m_stochastic_start; // Whether to "draw" the environment from a random distribution
     std::unique_ptr<ScreenExporter> m_screen_exporter; // Automatic screen recorder
 
     // The last actions taken by our players

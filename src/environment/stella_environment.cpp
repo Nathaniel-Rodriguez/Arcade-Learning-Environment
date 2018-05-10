@@ -37,7 +37,7 @@ StellaEnvironment::StellaEnvironment(OSystem* osystem, RomSettings* settings):
   } else {
     m_use_paddles = false;
   }
-  m_num_reset_steps = 4;
+  m_num_reset_steps = m_osystem->settings().getInt("system_reset_steps");
   m_cartridge_md5 = m_osystem->console().properties().get(Cartridge_MD5);
   
   m_max_num_frames_per_episode = m_osystem->settings().getInt("max_num_frames_per_episode");
@@ -50,6 +50,8 @@ StellaEnvironment::StellaEnvironment(OSystem* osystem, RomSettings* settings):
     ale::Logger::Warning << "Warning: frame skip set to < 1. Setting to 1." << std::endl;
     m_frame_skip = 1;
   }
+
+  m_stochastic_start = m_osystem->settings().getBool("use_environment_distribution");
 
   // If so desired, we record all emulated frames to a given directory 
   std::string recordDir = m_osystem->settings().getString("record_screen_dir");
@@ -70,9 +72,16 @@ void StellaEnvironment::reset() {
   // Reset the emulator
   m_osystem->console().system().reset();
 
+  // Use RNG to get # noopSteps
+  Random& rng = m_osystem->rng();
+
   // NOOP for 60 steps in the deterministic environment setting, or some random amount otherwise 
   int noopSteps;
-  noopSteps = 60;
+  if (m_stochastic_start) {
+    noopSteps = rng.next() % NUM_RANDOM_ENVIRONMENTS;
+  } else {
+    noopSteps = 60;
+  }
 
   emulate(PLAYER_A_NOOP, PLAYER_B_NOOP, noopSteps);
   // Reset the emulator
@@ -155,9 +164,11 @@ reward_t StellaEnvironment::act(Action player_a_action, Action player_b_action) 
     // Stochastically drop actions, according to m_repeat_action_probability
     if (rng.nextDouble() >= m_repeat_action_probability)
       m_player_a_action = player_a_action;
-    // @todo Possibly optimize by avoiding call to rand() when player B is "off" ?
-    if (rng.nextDouble() >= m_repeat_action_probability)
-      m_player_b_action = player_b_action;
+
+    // Removed as there is no player B
+//    // @todo Possibly optimize by avoiding call to rand() when player B is "off" ?
+//    if (rng.nextDouble() >= m_repeat_action_probability)
+//      m_player_b_action = player_b_action;
 
     // If so desired, request one frame's worth of sound (this does nothing if recording
     // is not enabled)
@@ -179,15 +190,24 @@ reward_t StellaEnvironment::minimalAct(Action player_a_action,
   if (isTerminal())
     return 0;
 
-  // Convert illegal actions into NOOPs; actions such as reset are always legal
-  noopIllegalActions(player_a_action, player_b_action);
+  // Total reward received as we repeat the action
+  reward_t sum_rewards = 0;
 
-  // Emulate in the emulator
-  emulate(player_a_action, PLAYER_B_NOOP);
-  // Increment the number of frames seen so far
-  m_state.incrementFrame();
+  // Apply the same action for a given number of times... note that act() will refuse to emulate
+  //  past the terminal state
+  for (size_t i = 0; i < m_frame_skip; i++) {
+    // Convert illegal actions into NOOPs; actions such as reset are always legal
+    noopIllegalActions(player_a_action, player_b_action);
 
-  return m_settings->getReward();
+    // Emulate in the emulator
+    emulate(player_a_action, player_b_action);
+    // Increment the number of frames seen so far
+    m_state.incrementFrame();
+
+    sum_rewards += m_settings->getReward();
+  }
+
+  return sum_rewards;
 }
 
 /** This functions emulates a push on the reset button of the console */
