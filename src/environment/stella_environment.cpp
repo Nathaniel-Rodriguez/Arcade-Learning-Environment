@@ -78,7 +78,7 @@ void StellaEnvironment::reset() {
   // NOOP for 60 steps in the deterministic environment setting, or some random amount otherwise 
   int noopSteps;
   if (m_stochastic_start) {
-    noopSteps = rng.next() % m_num_random_environments;
+    noopSteps = 60 + (rng.next() % m_num_random_environments);
   } else {
     noopSteps = 60;
   }
