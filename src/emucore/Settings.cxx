@@ -704,6 +704,7 @@ void Settings::setDefaultSettings() {
     boolSettings.insert(pair<string, bool>("run_length_encoding", true));
 
     // Environment customization settings
+    intSettings.insert(pair<string, int>("num_random_environments", 30));
     intSettings.insert(pair<string, int>("system_reset_steps", 4));
     boolSettings.insert(pair<string, bool>("use_environment_distribution", true));
     boolSettings.insert(pair<string, bool>("restricted_action_set", false));

@@ -33,9 +33,6 @@
 #include <stack>
 #include <memory>
 
-// Defines the number of random environments (adopted from Xitari)
-#define NUM_RANDOM_ENVIRONMENTS (500)
-
 class StellaEnvironment {
   public:
     StellaEnvironment(OSystem * system, RomSettings * settings);
@@ -139,6 +136,7 @@ class StellaEnvironment {
     bool m_use_paddles;  // Whether this game uses paddles
     
     /** Parameters loaded from Settings. */
+    uInt32 m_num_random_environments; // number of different possible start states
     int m_num_reset_steps; // Number of RESET frames per reset
     bool m_colour_averaging; // Whether to average frames
     int m_max_num_frames_per_episode; // Maxmimum number of frames per episode 
