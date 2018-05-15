@@ -52,6 +52,7 @@ StellaEnvironment::StellaEnvironment(OSystem* osystem, RomSettings* settings):
   }
 
   m_stochastic_start = m_osystem->settings().getBool("use_environment_distribution");
+  m_num_random_environments = static_cast<uInt32>(m_osystem->settings().getInt("num_random_environments"));
 
   // If so desired, we record all emulated frames to a given directory 
   std::string recordDir = m_osystem->settings().getString("record_screen_dir");
