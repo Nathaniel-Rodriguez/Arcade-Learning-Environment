@@ -64,6 +64,52 @@ StellaEnvironment::StellaEnvironment(OSystem* osystem, RomSettings* settings):
   }
 }
 
+/** play an initial random number of NOOPs **/
+void StellaEnvironment::NoopReset() {
+
+  // Carry out initial environment reset
+  reset();
+
+  // Use RNG to get # noopSteps
+  Random& rng = m_osystem->rng();
+
+  // NOOP for some random amount
+  int noopSteps;
+  if (m_stochastic_start) {
+    noopSteps = (rng.next() % m_num_random_environments);
+  } else {
+    noopSteps = 0;
+  }
+
+  // Play NOOP unless terminal, if it is terminal, then reset and continue
+  for (size_t iii = 0; iii < noopSteps; ++iii) {
+    emulate(PLAYER_A_NOOP, PLAYER_B_NOOP, 1);
+    if (isTerminal()) {
+      reset();
+      break;
+    }
+  }
+}
+
+/** Calls FIRE and UP actions if they exist to initiate the game **/
+void StellaEnvironment::FireReset() {
+
+  // Carry out initial environment reset
+  reset();
+
+  // Call FIRE command
+  emulate(PLAYER_A_FIRE, PLAYER_B_NOOP, 1);
+  if (isTerminal()) {
+    reset();
+  }
+
+  // Call UP command
+  emulate(PLAYER_A_UP, PLAYER_B_NOOP, 1);
+  if (isTerminal()) {
+    reset();
+  }
+}
+
 /** Resets the system to its start state. */
 void StellaEnvironment::reset() {
   m_state.resetEpisodeFrameNumber();
@@ -73,16 +119,7 @@ void StellaEnvironment::reset() {
   // Reset the emulator
   m_osystem->console().system().reset();
 
-  // Use RNG to get # noopSteps
-  Random& rng = m_osystem->rng();
-
-  // NOOP for 60 steps in the deterministic environment setting, or some random amount otherwise 
-  int noopSteps;
-  if (m_stochastic_start) {
-    noopSteps = 60 + (rng.next() % m_num_random_environments);
-  } else {
-    noopSteps = 60;
-  }
+  int noopSteps = 60;
 
   emulate(PLAYER_A_NOOP, PLAYER_B_NOOP, noopSteps);
   // Reset the emulator

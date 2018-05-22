@@ -37,6 +37,11 @@ class StellaEnvironment {
   public:
     StellaEnvironment(OSystem * system, RomSettings * settings);
 
+    /** play an initial random number of NOOPs **/
+    void NoopReset();
+    /** Calls FIRE and UP actions if they exist to initiate the game **/
+    void FireReset();
+
     /** Resets the system to its start state. */
     void reset();
 

@@ -231,6 +231,24 @@ void ALEInterface::setFloat(const std::string& key, const float value) {
   theSettings->validate();
 }
 
+void ALEInterface::training_reset() {
+
+  bool fire_reset = false;
+  ActionVect minimal_actions = getMinimalActionSet();
+  for (size_t iii = 0; iii < minimal_actions.size(); ++iii) {
+    if (minimal_actions[iii] == PLAYER_A_FIRE) {
+      fire_reset = true;
+      break;
+    }
+  }
+
+  if (fire_reset) {
+    environment->FireReset();
+  } else {
+    environment->NoopReset();
+  }
+}
+
 // Resets the game, but not the full system.
 void ALEInterface::reset_game() {
   environment->reset();

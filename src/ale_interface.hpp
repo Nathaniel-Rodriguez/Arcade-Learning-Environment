@@ -84,6 +84,9 @@ public:
   // Indicates if the game has ended.
   bool game_over() const;
 
+  // Resets the game using a random number of environments, or starts with FIRE
+  void training_reset();
+
   // Resets the game, but not the full system.
   void reset_game();
 
