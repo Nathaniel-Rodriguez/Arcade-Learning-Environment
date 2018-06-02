@@ -126,7 +126,7 @@ public:
   ActionVect getMinimalActionSet();
 
   // Returns the frame number since the loading of the ROM
-  int getFrameNumber();
+  int getFrameNumber() const;
 
   // The remaining number of lives.
   int lives();

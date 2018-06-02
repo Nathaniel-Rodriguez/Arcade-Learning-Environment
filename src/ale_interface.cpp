@@ -340,7 +340,7 @@ ActionVect ALEInterface::getMinimalActionSet() {
 }
 
 // Returns the frame number since the loading of the ROM
-int ALEInterface::getFrameNumber() {
+int ALEInterface::getFrameNumber() const {
   return environment->getFrameNumber();
 }
 
