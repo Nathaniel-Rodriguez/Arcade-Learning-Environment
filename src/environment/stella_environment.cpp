@@ -91,6 +91,47 @@ void StellaEnvironment::NoopReset() {
   }
 }
 
+
+/* Calls FIRE and UP actions if they exist to initiate the game and
+ * also runs noops after */
+void StellaEnvironment::FireNoopReset() {
+  // Carry out initial environment reset
+  reset();
+
+  // Call FIRE command
+  emulate(PLAYER_A_FIRE, PLAYER_B_NOOP, 1);
+  if (isTerminal()) {
+    reset();
+  }
+
+  // Call UP command
+  emulate(PLAYER_A_UP, PLAYER_B_NOOP, 1);
+  if (isTerminal()) {
+    reset();
+  }
+
+  // Do NOOP for random amount of time
+  // Use RNG to get # noopSteps
+  Random& rng = m_osystem->rng();
+
+  // NOOP for some random amount
+  int noopSteps;
+  if (m_stochastic_start) {
+    noopSteps = (rng.next() % m_num_random_environments);
+  } else {
+    noopSteps = 0;
+  }
+
+  // Play NOOP unless terminal, if it is terminal, then reset and continue
+  for (size_t iii = 0; iii < noopSteps; ++iii) {
+    emulate(PLAYER_A_NOOP, PLAYER_B_NOOP, 1);
+    if (isTerminal()) {
+      reset();
+      break;
+    }
+  }
+}
+
 /** Calls FIRE and UP actions if they exist to initiate the game **/
 void StellaEnvironment::FireReset() {
 

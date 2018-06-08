@@ -39,6 +39,11 @@ class StellaEnvironment {
 
     /** play an initial random number of NOOPs **/
     void NoopReset();
+
+    /* Calls FIRE and UP actions if they exist to initiate the game and
+     * also runs noops after*/
+    void FireNoopReset();
+
     /** Calls FIRE and UP actions if they exist to initiate the game **/
     void FireReset();
 

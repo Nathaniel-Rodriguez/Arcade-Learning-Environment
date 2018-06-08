@@ -243,7 +243,7 @@ void ALEInterface::training_reset() {
   }
 
   if (fire_reset) {
-    environment->FireReset();
+    environment->FireNoopReset();
   } else {
     environment->NoopReset();
   }
