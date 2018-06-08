@@ -98,20 +98,17 @@ void StellaEnvironment::NoopReset() {
 void StellaEnvironment::FireNoopReset() {
   // Carry out initial environment reset
   reset();
-  std::cout << "First reset" << std::endl;/////////////////////////////
 
   // Call FIRE command
   emulate(PLAYER_A_FIRE, PLAYER_B_NOOP, 1);
   if (isTerminal()) {
     reset();
-    std::cout << "Fire cause terminal: reset" << std::endl;/////////////////////////////
   }
 
   // Call UP command
   emulate(PLAYER_A_UP, PLAYER_B_NOOP, 1);
   if (isTerminal()) {
     reset();
-    std::cout << "Up caused terminal: reset" << std::endl;/////////////////////////////
   }
 
   // Do NOOP for random amount of time
@@ -131,7 +128,11 @@ void StellaEnvironment::FireNoopReset() {
     emulate(PLAYER_A_NOOP, PLAYER_B_NOOP, 1);
     if (isTerminal()) {
       reset();
-      std::cout << "Noop caused terminal: reset" << std::endl;/////////////////////////////
+      emulate(PLAYER_A_FIRE, PLAYER_B_NOOP, 1);
+      emulate(PLAYER_A_UP, PLAYER_B_NOOP, 1);
+      if (isTerminal()) {
+        reset();
+      }
       break;
     }
   }
